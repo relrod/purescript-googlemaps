@@ -6,5 +6,11 @@
     "node_modules",
     "bower_components",
     "output"
-  ]
+  ],
+  "dependencies": {
+    "purescript-simple-dom": "git://github.com/aktowns/purescript-simple-dom"
+  },
+  "resolutions": {
+    "purescript-arrays": "~0.3.0"
+  }
 }
