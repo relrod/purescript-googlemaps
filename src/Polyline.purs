@@ -8,8 +8,9 @@ import Control.Monad.Eff
 import GMaps.LatLng
 import GMaps.Map
 import GMaps.MVCArray
+import Data.Function (Fn1, runFn1, Fn2, runFn2)
 
-foreign import data Polyline :: *
+foreign import data Polyline :: Type
 
 type PolylineOptionsR = { geodescic :: Boolean
                         , strokeColor :: String
@@ -34,21 +35,15 @@ runPolylineOptions (PolylineOptions o) = { geodescic: o.geodescic
                                          , map: o.map
                                          }
 
-foreign import newPolylineFFI
-  "function newPolylineFFI(opts) {\
-  \  return function() {\
-  \    return new google.maps.Polyline(opts);\
-  \  };\
-  \}" :: forall eff. PolylineOptionsR -> Eff eff Polyline
+foreign import newPolyLineImpl :: forall eff. Fn1 PolylineOptionsR (Eff eff Polyline)
+
+newPolyLineFFI :: forall eff. PolylineOptionsR -> Eff eff
+newPolylineFFI = runFn1 newPolyLineImpl
 
 newPolyline :: forall eff. PolylineOptions -> Eff eff Polyline
 newPolyline o = newPolylineFFI (runPolylineOptions o)
 
-foreign import setPolylinePath
-  "function setPolylinePath(pl) {\
-  \  return function(arr) {\
-  \    return function() {\
-  \      pl.setPath(arr);\
-  \    };\
-  \  };\
-  \}" :: forall eff. Polyline -> MVCArray LatLng -> Eff eff Unit
+foreign import setPolylinePathImpl :: forall eff. Fn2 Polyline (MVCArray LatLng) (Eff eff Unit)
+
+setPolylinePath :: forall eff. Polyline -> MVCArray LatLng -> Eff eff Unit
+setPolylinePath = runFn2 setPolylinePathImpl

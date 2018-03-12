@@ -8,6 +8,7 @@
     "output"
   ],
   "dependencies": {
-    "purescript-dom": "^4.15.0"
+    "purescript-dom": "^4.15.0",
+    "purescript-functions": "^3.0.0"
   }
 }
