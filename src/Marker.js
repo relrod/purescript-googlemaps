@@ -8,3 +8,5 @@ exports.setMarkerPositionImpl = function(marker, latlng) {
   marker.setPosition(latlng);
   return;
 }
+
+exports.undefined = undefined;

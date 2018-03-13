@@ -1,10 +1,11 @@
 module GMaps.Marker where
 
-import Control.Monad.Eff
-import Data.Maybe
-import GMaps.LatLng
-import GMaps.Map
-import Data.Function (Fn1, runFn1, Fn2, runFn2)
+import Prelude (Unit)
+import Control.Monad.Eff (Eff)
+import Data.Maybe (Maybe, fromMaybe)
+import GMaps.LatLng (LatLng)
+import GMaps.Map (Map)
+import Data.Function.Uncurried (Fn1, runFn1, Fn2, runFn2)
 
 data MarkerOptions = MarkerOptions
   { position :: LatLng
@@ -15,6 +16,7 @@ data MarkerOptions = MarkerOptions
 
 foreign import data Marker :: Type
 
+-- GMaps either wants a marker icon or undefined.
 foreign import undefined :: forall a. a
 
 type MarkerOptionsR = { position :: LatLng

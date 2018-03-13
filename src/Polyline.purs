@@ -4,11 +4,12 @@ module GMaps.Polyline
   , newPolyline
   , setPolylinePath) where
 
-import Control.Monad.Eff
-import GMaps.LatLng
-import GMaps.Map
-import GMaps.MVCArray
-import Data.Function (Fn1, runFn1, Fn2, runFn2)
+import Prelude (Unit)
+import Control.Monad.Eff (Eff)
+import GMaps.LatLng (LatLng)
+import GMaps.Map (Map)
+import GMaps.MVCArray (MVCArray)
+import Data.Function.Uncurried (Fn1, runFn1, Fn2, runFn2)
 
 foreign import data Polyline :: Type
 
@@ -35,10 +36,10 @@ runPolylineOptions (PolylineOptions o) = { geodescic: o.geodescic
                                          , map: o.map
                                          }
 
-foreign import newPolyLineImpl :: forall eff. Fn1 PolylineOptionsR (Eff eff Polyline)
+foreign import newPolylineImpl :: forall eff. Fn1 PolylineOptionsR (Eff eff Polyline)
 
-newPolyLineFFI :: forall eff. PolylineOptionsR -> Eff eff
-newPolylineFFI = runFn1 newPolyLineImpl
+newPolylineFFI :: forall eff. PolylineOptionsR -> Eff eff Polyline
+newPolylineFFI = runFn1 newPolylineImpl
 
 newPolyline :: forall eff. PolylineOptions -> Eff eff Polyline
 newPolyline o = newPolylineFFI (runPolylineOptions o)
