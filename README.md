@@ -2,7 +2,7 @@
 
 ## Introduction
 
-An interface to Google Map's Javascript API. Allows loading maps into an HTML page/application, then adding markers and polylines to those maps.
+An interface to Google Maps Javascript API. Allows loading maps into an HTML page/application, then adding markers and polylines to those maps.
 
 ## Example
 
