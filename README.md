@@ -6,7 +6,7 @@ An interface to Google Map's Javascript API. Allows loading maps into an HTML pa
 
 ## Example
 
-Assuming the use of [Pulp](https://github.com/purescript-contrib/pulp) a Google Maps project could be started like this:
+Assuming the use of [Pulp](https://github.com/purescript-contrib/pulp) a Google Maps project could be started by running these commands:
 
 ```Bash
 mkdir map-project
@@ -15,7 +15,7 @@ pulp init
 bower install --save relrod/purescript-googlemaps
 ```
 
-Then the file `src/Main.purs` should look like:
+Then delete everything in the file `src/Main.purs` and paste this into it:
 
 ```PureScript
 module Main where
@@ -84,7 +84,7 @@ Create a new file (in the `map-project` directory), call it `index.html`
 </html>
 ```
 
-Don't forget to add your API key (obtained from Google) to the `<script>` tag above.
+Don't forget to add your API key (obtained from Google) to the `<script>` tag above (where it says `YOUR_API_KEY`).
 
 Then build the project (again assuming `pulp` is being used):
 
@@ -92,6 +92,6 @@ Then build the project (again assuming `pulp` is being used):
 pulp build --to app.js --skip-entry-point
 ```
 
-Note: since our `loadMap` function is called from Google Maps we add `--skip-entry-point` to `pulp build` so it does not complain about the lack of a `main` function.
+Note: since our `loadMap` function is called from Google Maps we add `--skip-entry-point` to `pulp build`, so it does not complain about the lack of a `main` function.
 
 Open `index.html` in a Web browser and a map (centred on Australia) will be displayed.
