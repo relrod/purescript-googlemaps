@@ -2,7 +2,7 @@ module GMaps.Map (Map (), gMap, panTo) where
 
 import Prelude (Unit)
 import Control.Monad.Eff (Eff)
-import DOM.Node.Types (Element)
+import Web.DOM (Element)
 import GMaps.LatLng (LatLng)
 import GMaps.MapOptions (MapOptions, runMapOptions)
 import Data.Function.Uncurried (Fn2, runFn2)
