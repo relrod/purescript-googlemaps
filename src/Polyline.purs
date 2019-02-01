@@ -5,7 +5,7 @@ module GMaps.Polyline
   , setPolylinePath) where
 
 import Prelude (Unit)
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import GMaps.LatLng (LatLng)
 import GMaps.Map (Map)
 import GMaps.MVCArray (MVCArray)
@@ -36,15 +36,15 @@ runPolylineOptions (PolylineOptions o) = { geodescic: o.geodescic
                                          , map: o.map
                                          }
 
-foreign import newPolylineImpl :: forall eff. Fn1 PolylineOptionsR (Eff eff Polyline)
+foreign import newPolylineImpl :: Fn1 PolylineOptionsR (Effect Polyline)
 
-newPolylineFFI :: forall eff. PolylineOptionsR -> Eff eff Polyline
+newPolylineFFI :: PolylineOptionsR -> Effect Polyline
 newPolylineFFI = runFn1 newPolylineImpl
 
-newPolyline :: forall eff. PolylineOptions -> Eff eff Polyline
+newPolyline :: PolylineOptions -> Effect Polyline
 newPolyline o = newPolylineFFI (runPolylineOptions o)
 
-foreign import setPolylinePathImpl :: forall eff. Fn2 Polyline (MVCArray LatLng) (Eff eff Unit)
+foreign import setPolylinePathImpl :: Fn2 Polyline (MVCArray LatLng) (Effect Unit)
 
-setPolylinePath :: forall eff. Polyline -> MVCArray LatLng -> Eff eff Unit
+setPolylinePath :: Polyline -> MVCArray LatLng -> Effect Unit
 setPolylinePath = runFn2 setPolylinePathImpl

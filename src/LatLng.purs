@@ -1,11 +1,11 @@
 module GMaps.LatLng where
 
-import Control.Monad.Eff
 import Data.Function.Uncurried (Fn2, runFn2)
+import Effect (Effect)
 
 data LatLng
 
-foreign import newLatLngImpl :: forall eff. Fn2 Number Number (Eff eff LatLng)
+foreign import newLatLngImpl :: Fn2 Number Number (Effect LatLng)
 
-newLatLng :: forall eff. Number -> Number -> Eff eff LatLng
+newLatLng :: Number -> Number -> Effect LatLng
 newLatLng = runFn2 newLatLngImpl

@@ -1,7 +1,7 @@
 module GMaps.Map (Map (), gMap, panTo) where
 
 import Prelude (Unit)
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import Web.DOM (Element)
 import GMaps.LatLng (LatLng)
 import GMaps.MapOptions (MapOptions, runMapOptions)
@@ -9,15 +9,15 @@ import Data.Function.Uncurried (Fn2, runFn2)
 
 foreign import data Map :: Type
 
-foreign import gMapImpl :: forall eff. Fn2 Element { zoom :: Number, center :: LatLng, mapTypeId :: String } (Eff eff Map)
+foreign import gMapImpl :: Fn2 Element { zoom :: Number, center :: LatLng, mapTypeId :: String } (Effect Map)
 
-gMapFFI :: forall eff. Element -> { zoom :: Number, center :: LatLng, mapTypeId :: String } -> Eff eff Map
+gMapFFI :: Element -> { zoom :: Number, center :: LatLng, mapTypeId :: String } -> Effect Map
 gMapFFI = runFn2 gMapImpl
 
-gMap :: forall eff. Element -> MapOptions -> Eff eff Map
+gMap :: Element -> MapOptions -> Effect Map
 gMap e m = gMapFFI e (runMapOptions m)
 
-foreign import panToImpl :: forall eff. Fn2 Map LatLng (Eff eff Unit)
+foreign import panToImpl :: Fn2 Map LatLng (Effect Unit)
 
-panTo :: forall eff. Map -> LatLng -> Eff eff Unit
+panTo :: Map -> LatLng -> Effect Unit
 panTo = runFn2 panToImpl
