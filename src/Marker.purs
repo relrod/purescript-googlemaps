@@ -44,3 +44,8 @@ foreign import setMarkerPositionImpl :: Fn2 Marker LatLng (Effect Unit)
 
 setMarkerPosition :: Marker -> LatLng -> Effect Unit
 setMarkerPosition = runFn2 setMarkerPositionImpl
+
+foreign import delMarkerImpl :: Fn1 Marker (Effect Unit)
+
+delMarker :: Marker -> Effect Unit
+delMarker = runFn1 delMarkerImpl

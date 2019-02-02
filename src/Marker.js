@@ -6,6 +6,13 @@ exports.newMarkerImpl = function(opts) {
   }
 }
 
+exports.delMarkerImpl = function(marker) {
+  return function() {
+    marker.setMap(null);
+    return;
+  }
+}
+
 exports.setMarkerPositionImpl = function(marker, latlng) {
   return function() {
     marker.setPosition(latlng);
