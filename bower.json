@@ -1,6 +1,6 @@
 {
   "name": "purescript-googlemaps",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -8,7 +8,7 @@
     "output"
   ],
   "dependencies": {
-    "purescript-dom": "^4.15.0",
-    "purescript-functions": "^3.0.0"
+    "purescript-web-dom": "^1.0.0",
+    "purescript-functions": "^4.0.0"
   }
 }

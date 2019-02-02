@@ -21,21 +21,18 @@ Then delete everything in the file `src/Main.purs` and paste this into it:
 module Main where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import DOM (DOM)
-import DOM.HTML (window) as HTML
-import DOM.HTML.Window (document) as HTML
-import DOM.HTML.Types (htmlDocumentToNonElementParentNode) as HTML
-import DOM.Node.NonElementParentNode (getElementById) as DOM
-import DOM.Node.Types (ElementId(..), Element)
+import Effect (Effect)
+import Web.DOM (DOM, ElementId(..), Element)
+import Web.HTML (window) as HTML
+import Web.HTML.Window (document) as HTML
+import Web.HTML.HTMLDocument (toNonElementParentNode) as HTML
+import Web.DOM.NonElementParentNode (getElementById) as DOM
 import Data.Maybe (Maybe(..))
 import GMaps.LatLng (newLatLng)
 import GMaps.Map (gMap)
 import GMaps.MapOptions (MapOptions(..))
 
-loadMap :: forall eff.
-  Eff (dom :: DOM | eff)
-  Unit
+loadMap :: Effect Unit
 loadMap = do
   let eid = ElementId "map"
   latlng <- newLatLng (-25.363) (131.044)
@@ -47,17 +44,11 @@ loadMap = do
       pure unit
     Nothing -> pure unit
 
-getElementById' :: forall eff.
-  ElementId
-  -> Eff
-       ( dom :: DOM
-       | eff
-       )
-       (Maybe Element)
+getElementById' :: ElementId -> Effect (Maybe Element)
 getElementById' eid = do
   document <- HTML.document =<< HTML.window
-  elem <- DOM.getElementById eid (HTML.htmlDocumentToNonElementParentNode document)
-  DOM.getElementById eid (HTML.htmlDocumentToNonElementParentNode document)
+  elem <- DOM.getElementById eid (HTML.toNonElementParentNode document)
+  DOM.getElementById eid (HTML.toNonElementParentNode document)
 ```
 
 Create a new file (in the `map-project` directory), call it `index.html`

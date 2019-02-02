@@ -1,7 +1,7 @@
 module GMaps.Marker where
 
 import Prelude (Unit)
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import Data.Maybe (Maybe, fromMaybe)
 import GMaps.LatLng (LatLng)
 import GMaps.Map (Map)
@@ -32,15 +32,15 @@ runMarkerOptions (MarkerOptions o) = { position: o.position
                                      , icon: fromMaybe undefined o.icon
                                      }
 
-foreign import newMarkerImpl :: forall eff. Fn1 MarkerOptionsR (Eff eff Marker)
+foreign import newMarkerImpl :: Fn1 MarkerOptionsR (Effect Marker)
 
-newMarkerFFI :: forall eff. MarkerOptionsR -> Eff eff Marker
+newMarkerFFI :: MarkerOptionsR -> Effect Marker
 newMarkerFFI = runFn1 newMarkerImpl
 
-newMarker :: forall eff. MarkerOptions -> Eff eff Marker
+newMarker :: MarkerOptions -> Effect Marker
 newMarker opts = newMarkerFFI (runMarkerOptions opts)
 
-foreign import setMarkerPositionImpl :: forall eff. Fn2 Marker LatLng (Eff eff Unit)
+foreign import setMarkerPositionImpl :: Fn2 Marker LatLng (Effect Unit)
 
-setMarkerPosition :: forall eff. Marker -> LatLng -> Eff eff Unit
+setMarkerPosition :: Marker -> LatLng -> Effect Unit
 setMarkerPosition = runFn2 setMarkerPositionImpl

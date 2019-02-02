@@ -1,7 +1,7 @@
 module GMaps.InfoWindow where
 
 import Prelude (Unit)
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import GMaps.Map (Map)
 import GMaps.Marker (Marker)
 import Data.Function.Uncurried (Fn1, runFn1, Fn3, runFn3)
@@ -17,12 +17,12 @@ type InfoWindowOptionsR = { content :: String }
 runInfoWindowOptions :: InfoWindowOptions -> InfoWindowOptionsR
 runInfoWindowOptions (InfoWindowOptions o) = { content: o.content }
 
-foreign import newInfoWindowImpl :: forall eff. Fn1 InfoWindowOptionsR (Eff eff InfoWindow)
+foreign import newInfoWindowImpl :: Fn1 InfoWindowOptionsR (Effect InfoWindow)
 
-newInfoWindow :: forall eff. InfoWindowOptionsR -> Eff eff InfoWindow
+newInfoWindow :: InfoWindowOptionsR -> Effect InfoWindow
 newInfoWindow = runFn1 newInfoWindowImpl
 
-foreign import openInfoWindowImpl :: forall eff. Fn3 InfoWindow Map Marker (Eff eff Unit)
+foreign import openInfoWindowImpl :: Fn3 InfoWindow Map Marker (Effect Unit)
 
-openInfoWindow :: forall eff. InfoWindow -> Map -> Marker -> (Eff eff Unit)
+openInfoWindow :: InfoWindow -> Map -> Marker -> Effect Unit
 openInfoWindow = runFn3 openInfoWindowImpl
