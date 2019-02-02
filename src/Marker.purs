@@ -49,3 +49,8 @@ foreign import delMarkerImpl :: Fn1 Marker (Effect Unit)
 
 delMarker :: Marker -> Effect Unit
 delMarker = runFn1 delMarkerImpl
+
+foreign import setMarkerLabelImpl :: Fn2 Marker String (Effect Unit)
+
+setMarkerLabel :: Marker -> String -> Effect Unit
+setMarkerLabel = runFn2 setMarkerLabelImpl

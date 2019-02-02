@@ -20,4 +20,11 @@ exports.setMarkerPositionImpl = function(marker, latlng) {
   }
 }
 
+exports.setMarkerLabelImpl = function(marker, label) {
+  return function() {
+    marker.setLabel(label);
+    return;
+  }
+}
+
 exports.undefined = undefined;
