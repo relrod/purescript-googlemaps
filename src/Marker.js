@@ -6,9 +6,23 @@ exports.newMarkerImpl = function(opts) {
   }
 }
 
+exports.delMarkerImpl = function(marker) {
+  return function() {
+    marker.setMap(null);
+    return;
+  }
+}
+
 exports.setMarkerPositionImpl = function(marker, latlng) {
   return function() {
     marker.setPosition(latlng);
+    return;
+  }
+}
+
+exports.setMarkerLabelImpl = function(marker, label) {
+  return function() {
+    marker.setLabel(label);
     return;
   }
 }
