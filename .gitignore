@@ -2,4 +2,5 @@
 .psci_modules/
 bower_components/
 node_modules/
+yarn-error.log
 /output/
