@@ -1,9 +1,16 @@
 module Test.Defaults where
 
-import Prelude (negate)
+import Prelude (bind, flip, negate, (<$>))
 
+import Data.Traversable (traverse)
+import Data.Maybe (Maybe)
 import Effect (Effect)
+import GMaps.Map (Map, defMapOptions_, gMap)
 import GMaps.LatLng (LatLng, newLatLng)
+import Web.HTML (window) as HTML
+import Web.HTML.HTMLDocument (toNonElementParentNode) as HTML
+import Web.DOM.NonElementParentNode (getElementById) as HTML
+import Web.HTML.Window (document) as HTML
 
 -- TODO: Quickcheck Arbitrary or Gen latLng?
 
@@ -15,3 +22,13 @@ lng = (-77.0365298)
 
 latLng :: Effect LatLng
 latLng = newLatLng lat lng
+
+googleMap :: Effect (Maybe Map)
+googleMap = do
+  window <- HTML.window
+  document <- HTML.document window
+  let node = HTML.toNonElementParentNode document
+  element <- HTML.getElementById "gmap" node
+  options <- defMapOptions_ <$> latLng
+  traverse (flip gMap options) element
+
