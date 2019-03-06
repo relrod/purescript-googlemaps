@@ -1,0 +1,19 @@
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Mocha Tests
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="https://unpkg.com/mocha/mocha.css")
+  body
+    #gmap
+    #mocha
+    script(src="https://unpkg.com/chai/chai.js")
+    script(src="https://unpkg.com/mocha/mocha.js")
+    script(src="https://maps.googleapis.com/maps/api/js?key=" + process.env.MAPS_API_KEY)
+    script.mocha-init.
+      mocha.setup('bdd');
+      mocha.checkLeaks();
+    script(src="bundle.js")
+    script.mocha-exec.
+      mocha.run();
+
