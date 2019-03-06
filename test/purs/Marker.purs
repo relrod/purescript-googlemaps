@@ -1,4 +1,4 @@
-module Test.Marker 
+module Test.Marker
   ( specs
   ) where
 

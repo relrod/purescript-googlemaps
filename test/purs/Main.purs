@@ -6,6 +6,7 @@ import Effect (Effect)
 import Data.Maybe (Maybe, maybe)
 import GMaps.Map (Map) as G
 import Test.Defaults (googleMap) as Defaults
+import Test.InfoWindow as InfoWindow
 import Test.LatLng as LatLng
 import Test.Map as Map
 import Test.Marker as Marker
@@ -18,6 +19,7 @@ main = do
   googleMap <- Defaults.googleMap
   runMocha do
     withMap googleMap Map.specs
+    describe "GMaps.InfoWindow" InfoWindow.specs
     describe "GMaps.LatLng" LatLng.specs
     describe "GMaps.Marker" Marker.specs
 
