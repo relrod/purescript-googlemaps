@@ -1,12 +1,13 @@
 module Test.Defaults where
 
-import Prelude (bind, flip, negate, (<$>))
+import Prelude (bind, flip, negate, (<$>), (=<<))
 
 import Data.Traversable (traverse)
 import Data.Maybe (Maybe)
 import Effect (Effect)
 import GMaps.Map (Map, defMapOptions_, gMap)
 import GMaps.LatLng (LatLng, newLatLng)
+import GMaps.Marker (Marker, MarkerOptions, defMarkerOptions_, newMarker)
 import Web.HTML (window) as HTML
 import Web.HTML.HTMLDocument (toNonElementParentNode) as HTML
 import Web.DOM.NonElementParentNode (getElementById) as HTML
@@ -22,6 +23,12 @@ lng = (-77.0365298)
 
 latLng :: Effect LatLng
 latLng = newLatLng lat lng
+
+markerOptions :: Effect MarkerOptions
+markerOptions = defMarkerOptions_ <$> latLng
+
+marker :: Effect Marker
+marker = newMarker =<< markerOptions
 
 googleMap :: Effect (Maybe Map)
 googleMap = do
