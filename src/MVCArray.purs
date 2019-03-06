@@ -1,4 +1,9 @@
-module GMaps.MVCArray where
+module GMaps.MVCArray 
+  ( MVCArray
+  , newMVCArray
+  , pushMVCArray
+  , popMVCArray
+  ) where
 
 import Prelude (Unit)
 import Effect (Effect)
