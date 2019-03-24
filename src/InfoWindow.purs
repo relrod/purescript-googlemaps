@@ -23,6 +23,8 @@ import Effect (Effect)
 import GMaps.Internal (maybeNothing, orUndefined)
 import GMaps.LatLng (LatLng, LatLngLiteral)
 import GMaps.LatLng (toLiteral) as LatLng
+import GMaps.MVCObject (class MVCObject, defAddListener)
+import GMaps.InfoWindow.InfoWindowEvent (InfoWindowEvent)
 import GMaps.Map (Map)
 import GMaps.Marker (Marker)
 
@@ -65,6 +67,9 @@ runInfoWindowOptions options = options
   }
 
 foreign import data InfoWindow :: Type
+
+instance mvcInfoWindowObject :: MVCObject InfoWindow InfoWindowEvent
+  where addListener = defAddListener
 
 foreign import newInfoWindowImpl :: Fn1 InfoWindowOptionsR (Effect InfoWindow)
 

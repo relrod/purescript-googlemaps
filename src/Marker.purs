@@ -41,6 +41,8 @@ import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import GMaps.LatLng (LatLng, LatLngLiteral)
 import GMaps.LatLng (toLiteral) as LatLng
+import GMaps.MVCObject (class MVCObject, defAddListener)
+import GMaps.Marker.MarkerEvent (MarkerEvent)
 import GMaps.Internal (maybeNothing, orUndefined)
 import GMaps.Map (Map)
 
@@ -119,6 +121,9 @@ runMakerOptions options = options
   }
 
 foreign import data Marker :: Type
+
+instance mvcMarkerObject :: MVCObject Marker MarkerEvent
+  where addListener = defAddListener
 
 foreign import newMarkerImpl :: Fn1 MarkerOptionsR (Effect Marker)
 
