@@ -1,12 +1,13 @@
 module GMaps.Marker
-  ( Marker
+  ( module GMaps.Marker.Types
+  , Marker
   , MarkerOptions
   , newMarker
   , deleteMarker
   , removeMarker
   , defMarkerOptions
   , defMarkerOptions_
-  --, getAnimation
+  , getAnimation
   , getClickable
   --, getCursor
   , getDraggable
@@ -19,7 +20,7 @@ module GMaps.Marker
   , getTitle
   , getVisible
   , getZIndex
-  --, setAnimation
+  , setAnimation
   , setClickable
   --, setCursor
   , setDraggable
@@ -35,22 +36,24 @@ module GMaps.Marker
   , setZIndex
   ) where
 
-import Prelude (Unit, (<<<))
 import Data.Function.Uncurried (Fn1, runFn1, Fn2, runFn2)
 import Data.Maybe (Maybe(..))
+import Data.String.Read (read)
 import Effect (Effect)
 import GMaps.LatLng (LatLng, LatLngLiteral)
 import GMaps.LatLng (toLiteral) as LatLng
 import GMaps.MVCObject (class MVCObject, defAddListener)
 import GMaps.Marker.MarkerEvent (MarkerEvent)
+import GMaps.Marker.Types
 import GMaps.Internal (maybeNothing, orUndefined)
 import GMaps.Map (Map)
+import Prelude (Unit, map, show, (<$>), (<<<))
 
 type MarkerOptionsR =
   { position :: LatLngLiteral
   , map :: Map
   --, anchorPoint :: Point
-  --, animation :: Animation
+  , animation :: String
   , clickable :: Boolean
   , crossOnDrag :: Boolean
   --, cursor :: String
@@ -69,7 +72,7 @@ type MarkerOptions =
   { position :: LatLngLiteral
   , map :: Maybe Map
   --, anchorPoint :: Maybe Point
-  --, animation :: Maybe Animation
+  , animation :: Maybe Animation
   , clickable :: Boolean
   , crossOnDrag :: Boolean
   --, cursor :: Maybe Cursor
@@ -92,7 +95,7 @@ defMarkerOptions position =
   { position
   , map: Nothing
   --, anchorPoint: Nothing
-  --, animation: Nothing
+  , animation: Nothing
   , clickable: true
   , crossOnDrag: true
   --, cursor: Nothing
@@ -111,7 +114,7 @@ runMakerOptions :: MarkerOptions -> MarkerOptionsR
 runMakerOptions options = options
   { map = orUndefined options.map
   --, anchorPoint = orUndefined options.anchorPoint
-  --, animation = orUndefined options.animation
+  , animation = orUndefined (show <$> options.animation)
   --, cursor = orUndefined options.cursor
   , icon = orUndefined options.icon
   , label = orUndefined options.label
@@ -140,10 +143,10 @@ foreign import deleteMarkerImpl :: Fn1 Marker (Effect Unit)
 deleteMarker :: Marker -> Effect Unit
 deleteMarker = runFn1 deleteMarkerImpl
 
---foreign import getAnimationImpl :: Fn1 Marker Animation
---
---getAnimation :: Marker ->  Animation
---getAnimation = runFn1 getAnimationImpl
+foreign import getAnimationImpl :: Fn1 Marker String
+
+getAnimation :: Marker -> Maybe Animation
+getAnimation = read <<< runFn1 getAnimationImpl
 
 foreign import getClickableImpl :: Fn1 Marker Boolean
 
@@ -205,10 +208,10 @@ foreign import getZIndexImpl :: Fn1 Marker Number
 getZIndex :: Marker -> Number
 getZIndex = runFn1 getZIndexImpl
 
---foreign import setAnimationImpl :: Fn2 Marker ?umm (Effect Marker)
---
---setAnimation :: Marker -> Animation -> Effect Marker
---setAnimation marker = runFn2 setAnimationImpl marker orNull
+foreign import setAnimationImpl :: Fn2 Marker String (Effect Marker)
+
+setAnimation :: Marker -> Maybe Animation -> Effect Marker
+setAnimation marker = runFn2 setAnimationImpl marker <<< orUndefined <<< map show
 
 foreign import setClickableImpl :: Fn2 Marker Boolean (Effect Marker)
 

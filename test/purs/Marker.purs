@@ -23,12 +23,18 @@ setterSpecs = do
       latLng <- liftEffect (newLatLng 50.0 (-50.0))
       let set = setMarker G.setPosition
       testIso latLng set G.getPosition
--- TODO: Animation
+    let setAnimation = setMarker G.setAnimation
+    it "Can set a marker's animation to Nothing" do
+      testIso Nothing setAnimation G.getAnimation
+    it "Can set a marker's animation to BOUNCE" do
+      testIso (Just G.Bounce) setAnimation G.getAnimation
+    it "Can set a marker's animation to DROP" do
+      testIso (Just G.Drop) setAnimation G.getAnimation
     let setClickable = setMarker G.setClickable
     it "Can set a marker as clickable" $
-       testIso true setClickable G.getClickable
+      testIso true setClickable G.getClickable
     it "Can set a marker as unclickable" $
-       testIso false setClickable G.getClickable
+      testIso false setClickable G.getClickable
 -- TODO: Cursor
     let setDraggable = setMarker G.setDraggable
     it "Can set a marker as draggable" $
@@ -66,7 +72,9 @@ setterSpecs = do
 initOptionsSpecs :: Spec Unit
 initOptionsSpecs = do
   describe "Test initialization options" do
--- TODO: Animation
+    it "Change animation from default" $
+      let set = initMarker (_ { animation = _ })
+       in testIso (Just G.Bounce) set G.getAnimation
 -- no get/set Anchor in the api.
     it "Change clickable from default" $
       let set = initMarker (_ { clickable = _ })

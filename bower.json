@@ -10,7 +10,8 @@
   "dependencies": {
     "purescript-web-html": "^1.2.0",
     "purescript-functions": "^4.0.0",
-    "purescript-foreign": "^5.0.0"
+    "purescript-foreign": "^5.0.0",
+    "purescript-read": "^1.0.1"
   },
   "devDependencies": {
     "purescript-psci-support": "^4.0.0",

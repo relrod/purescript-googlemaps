@@ -20,9 +20,9 @@ exports.deleteMarkerImpl = function(marker) {
   }
 }
 
-//exports.getAnimationImpl = function(marker) {
-//  return marker.getAnimation();
-//}
+exports.getAnimationImpl = function(marker) {
+  return marker.getAnimation();
+}
 
 exports.getClickableImpl = function(marker) {
   return marker.getClickable();
@@ -72,12 +72,12 @@ exports.getZIndexImpl = function(marker) {
   return marker.getZIndex();
 }
 
-//exports.setAnimationImpl = function(marker, animation) {
-//  return function() {
-//    marker.setAnimation(animation);
-//    return marker;
-//  }
-//}
+exports.setAnimationImpl = function(marker, animation) {
+  return function() {
+    marker.setAnimation(animation);
+    return marker;
+  }
+}
 
 exports.setClickableImpl = function(marker, clickable) {
   return function() {

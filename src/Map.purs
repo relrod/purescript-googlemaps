@@ -1,8 +1,7 @@
 module GMaps.Map
-  ( Map
+  ( module GMaps.Map.Types
+  , Map
   , MapOptions
-  , MapTypeId
-  , GestureHandling
   , defMapOptions
   , defMapOptions_
   , gMap
@@ -32,12 +31,14 @@ module GMaps.Map
 
 import Data.Function.Uncurried (Fn1, Fn2, Fn3, runFn1, runFn2, runFn3)
 import Data.Maybe (Maybe(..))
+import Data.String.Read (read)
 import Effect (Effect)
 import GMaps.Internal (orUndefined)
 import GMaps.LatLng (LatLng, LatLngLiteral)
 import GMaps.LatLng (toLiteral) as LatLng
-import Prelude ((<<<), (<$>))
+import GMaps.Map.Types (GestureHandling, MapTypeId)
 import Web.DOM (Element)
+import Prelude (show, (<<<), (<$>))
 
 type MapOptionsR =
   { center :: LatLngLiteral
@@ -151,10 +152,10 @@ runMapOptions options = options
   , draggableCursor = orUndefined options.draggableCursor
   --, fullscreenControl = orUndefined options.fullScreenControlOptions
   --, fullscreenControlOptions = orUndefined options.fullScreenControlOptions
-  , gestureHandling = orUndefined (runGestureHandling <$> options.gestureHandling)
+  , gestureHandling = orUndefined (show <$> options.gestureHandling)
   --, mapTypeControl = isJust options.mapTypeControlOptions
   --, mapTypeControlOptions = orUndefined options.mapTypeControlOptions
-  , mapTypeId = orUndefined (runMapTypeId <$> options.mapTypeId)
+  , mapTypeId = orUndefined (show <$> options.mapTypeId)
   , maxZoom = orUndefined options.maxZoom
   , minZoom = orUndefined options.minZoom
   --, restriction = orUndefined options.restriction
@@ -170,30 +171,6 @@ runMapOptions options = options
   --, zoomControl = isJust options.zoomControlOptions
   --, zoomControlOptions = orUndefined options.zoomControlOptions
   }
-
-data MapTypeId
-  = Hybrid
-  | RoadMap
-  | Satellite
-  | Terrain
-
-runMapTypeId :: MapTypeId -> String
-runMapTypeId Hybrid = "hybrid"
-runMapTypeId RoadMap = "roadmap"
-runMapTypeId Satellite = "satellite"
-runMapTypeId Terrain = "terrain"
-
-data GestureHandling
-  = Cooperative
-  | Greedy
-  | None
-  | Auto
-
-runGestureHandling :: GestureHandling -> String
-runGestureHandling Cooperative = "cooperative"
-runGestureHandling Greedy = "greedy"
-runGestureHandling None = "none"
-runGestureHandling Auto = "auto"
 
 foreign import data Map :: Type
 
@@ -232,8 +209,8 @@ getHeading = runFn1 getHeadingImpl
 
 foreign import getMapTypeIdImpl :: Fn1 Map String
 
-getMapTypeId :: Map -> String
-getMapTypeId = runFn1 getMapTypeIdImpl
+getMapTypeId :: Map -> Maybe MapTypeId
+getMapTypeId = read <<< runFn1 getMapTypeIdImpl
 
 --foreign import getProjectionImpl :: Fn1 Map Projection
 --getProjection :: Map -> Projection
@@ -284,8 +261,8 @@ setHeading = runFn2 setHeadingImpl
 
 foreign import setMapTypeIdImpl :: Fn2 Map String (Effect Map)
 
-setMapTypeId :: Map -> String -> Effect Map
-setMapTypeId = runFn2 setMapTypeIdImpl
+setMapTypeId :: Map -> MapTypeId -> Effect Map
+setMapTypeId gmap = runFn2 setMapTypeIdImpl gmap <<< show
 
 foreign import setOptionsImpl :: Fn2 Map MapOptionsR (Effect Map)
 
