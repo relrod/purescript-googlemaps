@@ -74,6 +74,13 @@ exports.panToImpl = function(map, x) {
 //  }
 //}
 
+exports.setCenterImpl = function(map, latLng) {
+  return function() {
+    map.setCenter(latLng);
+    return map;
+  }
+}
+
 exports.setClickableIconsImpl = function(map, clickable) {
   return function() {
     map.setClickableIcons(clickable);

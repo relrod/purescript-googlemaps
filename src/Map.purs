@@ -20,6 +20,7 @@ module GMaps.Map
   , panBy
   , panTo
   --, panToBounds
+  , setCenter
   , setClickableIcons
   , setHeading
   , setMapTypeId
@@ -265,6 +266,11 @@ panTo = runFn2 panToImpl
 --foreign import panToBoundsImpl :: Fn2 Map LatLngBounds (Effect Map)
 --panToBounds :: Map -> LatLngBounds -> Effect Map
 --panToBounds = runFn2 panToBoundsImpl
+
+foreign import setCenterImpl :: Fn2 Map LatLngLiteral (Effect Map)
+
+setCenter :: Map -> LatLngLiteral -> Effect Map
+setCenter = runFn2 setCenterImpl
 
 foreign import setClickableIconsImpl :: Fn2 Map Boolean (Effect Map)
 

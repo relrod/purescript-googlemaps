@@ -10,7 +10,6 @@ import GMaps.InfoWindow (defInfoWindowOptions_, newInfoWindow) as G
 import GMaps.Marker (Marker, MarkerOptions)
 import GMaps.Marker (defMarkerOptions_, newMarker) as G
 import Test.Defaults as Def
-import Test.Spec (Spec, it)
 import Test.Spec.Assertions (shouldEqual)
 
 -- TODO: alias Eq => Show
