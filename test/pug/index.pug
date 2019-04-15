@@ -4,9 +4,24 @@ html(lang="en")
     title Mocha Tests
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet" href="https://unpkg.com/mocha/mocha.css")
+    style.
+      #layout {
+        display: flex;
+        flex-direction: row;
+      }
+      #mocha {
+        flex-grow: 1;
+      }
+      #gmap {
+        flex-grow: 2;
+        margin-top: 60px;
+        width: 100%;
+        height: 100%;
+      }
   body
-    #gmap
-    #mocha
+    #layout
+      #mocha
+      #gmap
     script(src="https://unpkg.com/chai/chai.js")
     script(src="https://unpkg.com/mocha/mocha.js")
     script(src="https://maps.googleapis.com/maps/api/js?key=" + process.env.MAPS_API_KEY)
