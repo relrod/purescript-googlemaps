@@ -8,7 +8,7 @@
     "output"
   ],
   "dependencies": {
-    "purescript-web-html": "^1.2.0",
+    "purescript-web-html": "^2.0.1",
     "purescript-functions": "^4.0.0",
     "purescript-foreign": "^5.0.0",
     "purescript-read": "^1.0.1"
