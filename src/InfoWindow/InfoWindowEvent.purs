@@ -2,7 +2,7 @@ module GMaps.InfoWindow.InfoWindowEvent
   ( InfoWindowEvent(..)
   ) where
 
-import GMaps.MVCEvent (class MVCEvent)
+import GMaps.MVC.MVCEvent (class MVCEvent)
 
 data InfoWindowEvent
   = CloseClick

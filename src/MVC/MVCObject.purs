@@ -1,4 +1,4 @@
-module GMaps.MVCObject
+module GMaps.MVC.MVCObject
   ( class MVCObject
   , Listener
   , addListener
@@ -8,7 +8,7 @@ module GMaps.MVCObject
 
 import Data.Function.Uncurried (Fn1, runFn1, Fn3, runFn3)
 import Effect (Effect)
-import GMaps.MVCEvent (class MVCEvent, eventName)
+import GMaps.MVC.MVCEvent (class MVCEvent, eventName)
 import Prelude (Unit)
 
 foreign import data Listener :: Type

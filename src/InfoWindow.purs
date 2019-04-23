@@ -16,17 +16,17 @@ module GMaps.InfoWindow
   , setZIndex
   ) where
 
-import Prelude (Unit, (<<<))
 import Data.Function.Uncurried (Fn1, Fn2, Fn3, runFn1, runFn2, runFn3)
 import Data.Maybe (Maybe(Nothing))
 import Effect (Effect)
+import GMaps.InfoWindow.InfoWindowEvent (InfoWindowEvent)
+import GMaps.Marker (Marker)
 import GMaps.Internal (maybeNothing, orUndefined)
 import GMaps.LatLng (LatLng, LatLngLiteral)
 import GMaps.LatLng (toLiteral) as LatLng
-import GMaps.MVCObject (class MVCObject, defAddListener)
-import GMaps.InfoWindow.InfoWindowEvent (InfoWindowEvent)
+import GMaps.MVC.MVCObject (class MVCObject, defAddListener)
 import GMaps.Map (Map)
-import GMaps.Marker (Marker)
+import Prelude (Unit, (<<<))
 
 type InfoWindowOptionsR =
   { position :: LatLngLiteral

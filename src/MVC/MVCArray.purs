@@ -1,4 +1,4 @@
-module GMaps.MVCArray 
+module GMaps.MVC.MVCArray
   ( MVCArray
   , newMVCArray
   , pushMVCArray

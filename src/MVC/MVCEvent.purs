@@ -1,4 +1,4 @@
-module GMaps.MVCEvent
+module GMaps.MVC.MVCEvent
   ( class MVCEvent
   , eventName
   ) where

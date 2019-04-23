@@ -40,12 +40,12 @@ import Data.Function.Uncurried (Fn1, runFn1, Fn2, runFn2)
 import Data.Maybe (Maybe(..))
 import Data.String.Read (read)
 import Effect (Effect)
-import GMaps.LatLng (LatLng, LatLngLiteral)
-import GMaps.LatLng (toLiteral) as LatLng
-import GMaps.MVCObject (class MVCObject, defAddListener)
 import GMaps.Marker.MarkerEvent (MarkerEvent)
 import GMaps.Marker.Types
 import GMaps.Internal (maybeNothing, orUndefined)
+import GMaps.LatLng (LatLng, LatLngLiteral)
+import GMaps.LatLng (toLiteral) as LatLng
+import GMaps.MVC.MVCObject (class MVCObject, defAddListener)
 import GMaps.Map (Map)
 import Prelude (Unit, map, show, (<$>), (<<<))
 

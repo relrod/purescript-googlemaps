@@ -6,8 +6,8 @@ import Prelude
 
 import Data.Maybe (Maybe(..))
 import Effect.Class (liftEffect)
-import GMaps.LatLng (newLatLng)
 import GMaps.InfoWindow as G
+import GMaps.LatLng (newLatLng)
 import Test.Spec (Spec, describe, it)
 import Test.Util (initWindow, setWindow, testIso)
 
