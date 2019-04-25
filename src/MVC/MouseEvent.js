@@ -1,6 +1,6 @@
-"use-strict";
+"use strict";
 
-exports.stopMouseEventImpl = function (mouseEvent) {
+exports.stopImpl = function (mouseEvent) {
   return function () {
     mouseEvent.stop();
     return;
@@ -8,5 +8,5 @@ exports.stopMouseEventImpl = function (mouseEvent) {
 }
 
 exports.getLatLngImpl = function (mouseEvent) {
-  return mouseEvent.getLatLng();
+  return mouseEvent.latLng;
 }

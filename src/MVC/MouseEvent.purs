@@ -1,8 +1,8 @@
 module GMaps.MVC.MouseEvent
   ( MouseEvent
-  , MVCMouseEvent
+  , MVCMouseEvent(..)
   , mouseEventName
-  , stopMouseEvent
+  , stop
   , getLatLng
   ) where
 
@@ -14,10 +14,10 @@ import Prelude (Unit)
 -- Data returned by a triggered event
 foreign import data MouseEvent :: Type
 
-foreign import stopMouseEventImpl :: Fn1 MouseEvent (Effect Unit)
+foreign import stopImpl :: Fn1 MouseEvent (Effect Unit)
 
-stopMouseEvent :: MouseEvent -> Effect Unit
-stopMouseEvent = runFn1 stopMouseEventImpl
+stop :: MouseEvent -> Effect Unit
+stop = runFn1 stopImpl
 
 foreign import getLatLngImpl :: Fn1 MouseEvent LatLng
 
