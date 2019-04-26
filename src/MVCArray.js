@@ -18,3 +18,7 @@ exports.popMVCArrayImpl = function(arr) {
     return arr.pop();
   }
 }
+
+exports.toArrayImpl = function(arr) {
+  return arr.getArray();
+}
