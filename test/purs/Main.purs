@@ -8,6 +8,7 @@ import GMaps.Map (Map) as G
 import Test.Defaults (googleMap) as Defaults
 import Test.Draw.Polygon as Polygon
 import Test.Draw.Polyline as Polyline
+import Test.Geometry.Poly as Poly
 import Test.InfoWindow as InfoWindow
 import Test.LatLng as LatLng
 import Test.Map as Map
@@ -26,6 +27,7 @@ main = do
     describe "GMaps.InfoWindow" InfoWindow.specs
     describe "GMaps.LatLng" LatLng.specs
     describe "GMaps.Marker" Marker.specs
+    describe "GMaps.Geometry.Poly" Poly.specs
 
 withMap :: Maybe G.Map -> (G.Map -> Spec Unit) -> Spec Unit
 withMap googleMap suite = maybe failedToLoadMap suite googleMap
