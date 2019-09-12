@@ -4,8 +4,6 @@ import Prelude ((<=<))
 import Data.Maybe (Maybe(..), fromMaybe)
 import Foreign (isNull, isUndefined, unsafeToForeign)
 
--- TODO: Use Foreign.NullOrUndefined or Data.Nullable
-
 foreign import undefined :: forall a. a
 
 orUndefined :: forall a. Maybe a -> a

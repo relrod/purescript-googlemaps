@@ -28,7 +28,6 @@ import GMaps.Marker (defMarkerOptions_, newMarker) as G
 import Test.Defaults as Def
 import Test.Spec.Assertions (shouldEqual)
 
--- TODO: alias Eq => Show
 -- TODO: probably misnamed
 testIso :: forall a b. Eq a => Show a => a -> (a -> Effect b) -> (b -> a) -> Aff Unit
 testIso a set get = do

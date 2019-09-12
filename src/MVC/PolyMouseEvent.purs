@@ -21,7 +21,6 @@ newtype PolyMouseEvent = PolyMouseEvent MouseEvent
 
 derive instance newtypePolyMouseEvent :: Newtype PolyMouseEvent _
 
--- TODO: what does unwrap compile to?
 stop :: PolyMouseEvent -> Effect Unit
 stop = MouseEvent.stop <<< unwrap
 
