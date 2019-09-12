@@ -5,7 +5,7 @@ module Test.Draw.Polyline
 import Prelude
 
 import GMaps.LatLng (toLiteral) as LatLng
-import GMaps.Draw.Polyline as G
+import GMaps.Draw as D
 import Test.Defaults (altPath) as Def
 import Test.Spec (Spec, describe, it)
 import Test.Util (initPolyline, setPolyline, testIso)
@@ -23,32 +23,30 @@ initOptionSpecs :: Spec Unit
 initOptionSpecs = do
   it "Change path from default" $
     let set = initPolyline (_ { path = _ })
-        get = map LatLng.toLiteral <<< G.getPath
+        get = map LatLng.toLiteral <<< D.getPath
     in testIso Def.altPath set get
 
--- TODO: shared with Polygon
 polySetterSpecs :: Spec Unit
 polySetterSpecs = do
   it "Can set as draggable" $
-    testIso true (setPolyline G.setDraggable) G.getDraggable
+    testIso true (setPolyline D.setDraggable) D.getDraggable
   it "Can set as editable" $
-    testIso true (setPolyline G.setEditable) G.getEditable
+    testIso true (setPolyline D.setEditable) D.getEditable
   it "Can set path" $
-    let get = map LatLng.toLiteral <<< G.getPath
-    in testIso Def.altPath (setPolyline G.setPath) get
+    let get = map LatLng.toLiteral <<< D.getPath
+    in testIso Def.altPath (setPolyline D.setPath) get
   it "Can set as invisible" $
-    testIso false (setPolyline G.setVisible) G.getVisible
+    testIso false (setPolyline D.setVisible) D.getVisible
 
--- TODO: shared with Polygon
 polyOptionsSpecs :: Spec Unit
 polyOptionsSpecs = do
   it "Change draggable from default" $
     let set = initPolyline (_ { draggable = _ })
-    in testIso true set G.getDraggable
+    in testIso true set D.getDraggable
   it "Change editable from default" $
     let set = initPolyline (_ { editable = _ })
-    in testIso true set G.getEditable
+    in testIso true set D.getEditable
   it "Change visible from default" $
     let set = initPolyline (_ { visible = _ })
-    in testIso true set G.getVisible
+    in testIso true set D.getVisible
 

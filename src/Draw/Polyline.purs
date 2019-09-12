@@ -8,17 +8,6 @@ module GMaps.Draw.Polyline
   , getMap
   , setMap
   , remove
-  -- TODO: same as Polygon
-  , getDraggable
-  , getEditable
-  , getPath
-  , getPath_
-  , getVisible
-  , setDraggable
-  , setEditable
-  , setPath
-  , setPath_
-  , setVisible
   ) where
 
 import Data.Function.Uncurried (Fn1, runFn1, Fn2, runFn2)
@@ -28,8 +17,6 @@ import GMaps.Draw.Polyline.PolylineEvent (PolylineEvent)
 import GMaps.Internal (maybeNothing, orUndefined)
 import GMaps.LatLng (LatLng, LatLngLiteral)
 import GMaps.LatLng (toLiteral) as LatLng
-import GMaps.MVC.MVCArray (MVCArray)
-import GMaps.MVC.MVCArray (toArray) as MVCArray
 import GMaps.MVC.MVCObject (class MVCObject, defAddListener)
 import GMaps.Map (Map)
 import Prelude (Unit, flip, map, (<<<))
@@ -124,50 +111,3 @@ foreign import setOptionsImpl :: Fn2 Polyline PolylineOptionsR (Effect Polyline)
 
 setOptions :: Polyline -> PolylineOptions -> Effect Polyline
 setOptions polyline = runFn2 setOptionsImpl polyline <<< runPolylineOptions
-
--- TODO: same as Polygon
-foreign import getDraggableImpl :: Fn1 Polyline Boolean
-
-getDraggable :: Polyline -> Boolean
-getDraggable = runFn1 getDraggableImpl
-
-foreign import getEditableImpl :: Fn1 Polyline Boolean
-
-getEditable :: Polyline -> Boolean
-getEditable = runFn1 getEditableImpl
-
-foreign import getPathImpl :: Fn1 Polyline (MVCArray LatLng)
-
-getPath_ :: Polyline -> MVCArray LatLng
-getPath_ = runFn1 getPathImpl
-
-getPath :: Polyline -> Array LatLng
-getPath = MVCArray.toArray <<< getPath_
-
-foreign import getVisibleImpl :: Fn1 Polyline Boolean
-
-getVisible :: Polyline -> Boolean
-getVisible = runFn1 getVisibleImpl
-
-foreign import setDraggableImpl :: Fn2 Polyline Boolean (Effect Polyline)
-
-setDraggable :: Polyline -> Boolean -> Effect Polyline
-setDraggable = runFn2 setDraggableImpl
-
-foreign import setEditableImpl :: Fn2 Polyline Boolean (Effect Polyline)
-
-setEditable :: Polyline -> Boolean -> Effect Polyline
-setEditable = runFn2 setEditableImpl
-
-foreign import setPathImpl :: Fn2 Polyline (Array LatLngLiteral) (Effect Polyline)
-
-setPath :: Polyline -> Array LatLngLiteral -> Effect Polyline
-setPath = runFn2 setPathImpl
-
-setPath_ :: Polyline -> Array LatLng -> Effect Polyline
-setPath_ polyline = setPath polyline <<< map LatLng.toLiteral
-
-foreign import setVisibleImpl :: Fn2 Polyline Boolean (Effect Polyline)
-
-setVisible :: Polyline -> Boolean -> Effect Polyline
-setVisible = runFn2 setVisibleImpl

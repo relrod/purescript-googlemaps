@@ -5,7 +5,8 @@ module Test.Draw.Polygon
 import Prelude
 
 import GMaps.LatLng (toLiteral) as LatLng
-import GMaps.Draw.Polygon as G
+import GMaps.Draw as D
+import GMaps.Draw.Polygon as P
 import Test.Defaults (altPath) as Def
 import Test.Spec (Spec, describe, it)
 import Test.Util (initPolygon, setPolygon, testIso)
@@ -24,8 +25,8 @@ specs = do
 setterSpecs :: Spec Unit
 setterSpecs = do
   it "Can set mutiple paths at a time" $
-    let set = setPolygon G.setPaths
-        get = map (map LatLng.toLiteral) <<< G.getPaths
+    let set = setPolygon P.setPaths
+        get = map (map LatLng.toLiteral) <<< P.getPaths
         paths =
           [ [ { lat: 0.0, lng: 0.0 }
             , { lat: 10.0, lng: 0.0 }
@@ -44,31 +45,29 @@ initOptionSpecs :: Spec Unit
 initOptionSpecs = do
   it "Change path from default" $
     let set = initPolygon (_ { paths = _ })
-        get = map (map LatLng.toLiteral) <<< G.getPaths
+        get = map (map LatLng.toLiteral) <<< P.getPaths
     in testIso [ Def.altPath ] set get
 
--- TODO: shared with Polyline
 polySetterSpecs :: Spec Unit
 polySetterSpecs = do
   it "Can set as draggable" $
-    testIso true (setPolygon G.setDraggable) G.getDraggable
+    testIso true (setPolygon D.setDraggable) D.getDraggable
   it "Can set as editable" $
-    testIso true (setPolygon G.setEditable) G.getEditable
+    testIso true (setPolygon D.setEditable) D.getEditable
   it "Can set path" $
-    let get = map LatLng.toLiteral <<< G.getPath
-    in testIso Def.altPath (setPolygon G.setPath) get
+    let get = map LatLng.toLiteral <<< D.getPath
+    in testIso Def.altPath (setPolygon D.setPath) get
   it "Can set as invisible" $
-    testIso false (setPolygon G.setVisible) G.getVisible
+    testIso false (setPolygon D.setVisible) D.getVisible
 
--- TODO: shared with Polyline
 polyOptionsSpecs :: Spec Unit
 polyOptionsSpecs = do
   it "Change draggable from default" $
     let set = initPolygon (_ { draggable = _ })
-    in testIso true set G.getDraggable
+    in testIso true set D.getDraggable
   it "Change editable from default" $
     let set = initPolygon (_ { editable = _ })
-    in testIso true set G.getEditable
+    in testIso true set D.getEditable
   it "Change visible from default" $
     let set = initPolygon (_ { visible = _ })
-    in testIso true set G.getVisible
+    in testIso true set D.getVisible
