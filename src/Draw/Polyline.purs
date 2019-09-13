@@ -7,6 +7,7 @@ module GMaps.Draw.Polyline
   , deletePolyline
   , getMap
   , setMap
+  , setOptions
   , remove
   ) where
 
