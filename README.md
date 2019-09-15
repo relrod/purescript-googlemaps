@@ -8,7 +8,7 @@ An interface to Google Maps Javascript API. Allows loading maps into an HTML pag
 
 Assuming the use of [Pulp](https://github.com/purescript-contrib/pulp) a Google Maps project could be started by running these commands:
 
-```Bash
+```bash
 mkdir map-project
 cd map-project
 pulp init
@@ -17,7 +17,7 @@ bower install --save relrod/purescript-googlemaps
 
 Then delete everything in the file `src/Main.purs` and paste this into it:
 
-```PureScript
+```purescript
 module Main where
 
 import Prelude
@@ -29,20 +29,15 @@ import Web.HTML.HTMLDocument (toNonElementParentNode) as HTML
 import Web.DOM.NonElementParentNode (getElementById) as DOM
 import Data.Maybe (Maybe(..))
 import GMaps.LatLng (newLatLng)
-import GMaps.Map (gMap)
-import GMaps.MapOptions (MapOptions(..))
+import GMaps.Map (MapTypeId(RoadMap), defMapOptions, gMap)
 
 loadMap :: Effect Unit
 loadMap = do
   let eid = ElementId "map"
-  latlng <- newLatLng (-25.363) (131.044)
-  let opts = MapOptions { zoom: 4.0, center: latlng, mapTypeId: "roadmap" }
+  center <- newLatLng (-25.363) (131.044)
+  let opts = defMapOptions center { zoom = 4.0, mapTypeId = Just RoadMap }
   elem <- getElementById' eid
-  case elem of
-    Just elem_ -> do
-      _ <- gMap elem_ opts
-      pure unit
-    Nothing -> pure unit
+  for_ elem (\e -> gMap e opts)
 
 getElementById' :: ElementId -> Effect (Maybe Element)
 getElementById' eid = do
