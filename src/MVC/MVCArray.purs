@@ -1,4 +1,10 @@
-module GMaps.MVCArray where
+module GMaps.MVC.MVCArray
+  ( MVCArray
+  , newMVCArray
+  , pushMVCArray
+  , popMVCArray
+  , toArray
+  ) where
 
 import Prelude (Unit)
 import Effect (Effect)
@@ -23,3 +29,8 @@ foreign import popMVCArrayImpl :: forall a. Fn1 (MVCArray a) (Effect a)
 
 popMVCArray :: forall a. MVCArray a -> Effect a
 popMVCArray = runFn1 popMVCArrayImpl
+
+foreign import toArrayImpl :: forall a. Fn1 (MVCArray a) (Array a)
+
+toArray :: forall a. MVCArray a -> Array a
+toArray = runFn1 toArrayImpl

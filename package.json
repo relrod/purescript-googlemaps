@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "postinstall": "bower install",
+    "build": "pulp build",
+    "watch": "pulp --watch build",
+    "test:build": "dotenv pug test/pug -- -o dist && pulp browserify -I test/purs -m Test.Main -t dist/bundle.js",
+    "test:watch": "pulp --watch --then 'yarn test:run' browserify -I test/purs -m Test.Main -t dist/bundle.js",
+    "test:run": "mocha-headless-chrome -a no-sandbox -f dist/index.html"
+  },
+  "devDependencies": {
+    "bower": "^1.8.8",
+    "dotenv-cli": "^1.4.0",
+    "mocha": "^6.0.1",
+    "mocha-headless-chrome": "^2.0.2",
+    "pug-cli": "^1.0.0-alpha6",
+    "pulp": "^12.3.1",
+    "purescript": "^0.12.2",
+    "purescript-language-server": "^0.12.7"
+  }
+}
